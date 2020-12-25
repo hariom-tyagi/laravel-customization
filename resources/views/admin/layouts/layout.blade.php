@@ -19,7 +19,7 @@
                                 <div class="modal-content shadow radius-1 brc-primary-m2">
                                     <div class="modal-header py-2 bgc-primary-tp1 border-0  radius-t-1">
                                         <h5 id="common_modal_header_text" class="modal-title text-white-tp1 text-110 pl-2 font-bolder"></h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button onclick="closeAudio()" type="button" class="close" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>

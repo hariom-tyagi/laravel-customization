@@ -4,11 +4,7 @@
             <button type="button" class="btn btn-burger burger-arrowed static collapsed ml-2 d-flex d-xl-none" data-toggle-mobile="sidebar" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
                 <span class="bars"></span>
             </button>
-            <a class="navbar-brand text-white" href="#">
-                <i class="fa fa-leaf"></i>
-                <span>Ace</span>
-                <span>App</span>
-            </a>
+            <a class="navbar-brand text-white" href="<?= url('/admin/dashboard') ?>">निजानंद संप्रदाय</a>
         </div>
         <button class="navbar-toggler ml-1 mr-2 px-1" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navbar menu">
             <span class="pos-rel">

@@ -31,13 +31,19 @@
         getAudiosDatatable();
     });
 
-    function playAudio(id, file_name) {
+    function playAudio(id, file_name, name) {
         $('#common_modal_header_text').html('');
         $('#common_modal_body').html('');
-        $('#common_modal_header_text').html('WOH MASTIYAN');
-        $('#common_modal_body').html('<audio id="audio_to_be_played" preload="auto" controls><source src="<?= url('/uploads/audios/1/woh_mastiyan.mp3') ?>"></audio>');
+        $('#common_modal_header_text').html(name);
+        $('#common_modal_body').html('<audio id="audio_to_be_played" preload="auto" controls><source src="' + site_url + '/uploads/audios/' + id + '/' + file_name + '"></audio>');
         $('#audio_to_be_played').audioPlayer();
         $('#common_modal').modal('show');
+    }
+
+    function closeAudio() {
+        $('#common_modal_header_text').html('');
+        $('#common_modal_body').html('');
+        $('#common_modal').modal('hide');
     }
 
     function getAudiosDatatable() {

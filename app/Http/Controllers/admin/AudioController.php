@@ -18,7 +18,7 @@ class AudioController extends Controller {
         return DataTables::of(Audio::get())
                         ->addIndexColumn()
                         ->addColumn('action', function($row) {
-                            return '<button onclick="playAudio(' . $row['audio_id'] . ')" type="button" class="btn btn-warning btn-md"><i class="fa fa-play"></i></button>'
+                            return '<button onclick="playAudio(' . $row['audio_id'] . ',\'' . $row['file_name'] . '\',\'' . $row['name'] . '\')" type="button" class="btn btn-warning btn-md"><i class="fa fa-play"></i></button>'
                                     . '&nbsp;&nbsp;<a href="' . url('/') . '" class="btn btn-primary btn-md"><i class="fa fa-edit"></i></a>'
                                     . '&nbsp;&nbsp;<button class="btn btn-danger btn-md"><i class="fa fa-trash"></i></button>';
                         })
@@ -32,11 +32,24 @@ class AudioController extends Controller {
             if (!empty($postArr['audio_id'])) {
                 
             } else {
-                Audio::insertGetId($postArr);
+
+                $audio_id = Audio::insertGetId($postArr);
+                if ($request->hasFile('audio_file')) {
+                    $file_name = $request->audio_file->getClientOriginalName();
+                    $request->audio_file->move("uploads/audios/$audio_id", $file_name);
+                    $audioFileDetailArr = new Mp3Info(public_path("uploads/audios/$audio_id/$file_name"));
+                    Audio::where([['audio_id', '=', $audio_id]])->update(['file_name' => $file_name, 'duration' => gmdate("H:i:s", $audioFileDetailArr->duration), 'size' => $this->formatBytes($audioFileDetailArr->audioSize)]);
+                }
                 return redirect('admin/audios/index');
             }
         }
         return view('admin/audios/audio');
+    }
+
+    function formatBytes($size, $precision = 2) {
+        $base = log($size, 1024);
+        $suffixes = array('', 'K', '', 'G', 'T');
+        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
     }
 
 }
